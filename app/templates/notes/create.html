@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Nova bilješka{% endblock %}
+
+{% block content %}
+<h3>Kreiraj novu bilješku</h3>
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">Naslov</label>
+        <input class="form-control" name="title" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Sadržaj (Markdown)</label>
+        <textarea class="form-control" name="content" id="content" rows="6"></textarea>
+    </div>
+    <button class="btn btn-success" type="submit">Spremi</button>
+    <a href="{{ url_for('notes.list_notes') }}" class="btn btn-primary">Nazad</a>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const easyMDE = new EasyMDE({
+        element: document.getElementById("content"), 
+        spellChecker: false,
+        autosave: {
+            enabled: false
+        }
+    });
+</script>
+{% endblock %}

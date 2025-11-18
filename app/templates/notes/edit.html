@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Uredi bilješku{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h3>Uredi bilješku
+            {% if admin_mode %}
+            <span class="badge bg-primary text-dark ms-2">Uređujete bilješku od: '{{ note.username }}'</span>
+            {% endif %}
+        </h3>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="title" class="form-label">Naslov</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{ note.title }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">Sadržaj (Markdown)</label>
+                <textarea class="form-control" id="content" name="content" rows="10">{{ note.content }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Spremi promjene</button>
+            
+            {% if admin_mode %}
+            <a href="{{ url_for('notes.admin_dashboard') }}" class="btn btn-primary">Odustani (Admin Dashboard)</a>
+            {% else %}
+            <a href="{{ url_for('notes.list_notes') }}" class="btn btn-primary">Odustani</a>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const easyMDE = new EasyMDE({
+        element: document.getElementById("content"),
+        spellChecker: false,
+        autosave: {
+            enabled: false
+        }
+    });
+</script>
+{% endblock %}

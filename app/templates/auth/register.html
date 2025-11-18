@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Registracija{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-3">Registracija</h4>
+                <form method="post">
+                    <!-- OBAVEZNO: Uključi CSRF token -->
+                    {{ form.hidden_tag() }} 
+
+                    <!-- Korisničko ime -->
+                    <div class="mb-3">
+                        {{ form.username.label(class="form-label") }}
+                        {{ form.username(class="form-control") }}
+                        {% for error in form.username.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Email -->
+                    <div class="mb-3">
+                        {{ form.email.label(class="form-label") }}
+                        {{ form.email(class="form-control") }}
+                        {% for error in form.email.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Lozinka -->
+                    <div class="mb-3">
+                        {{ form.password.label(class="form-label") }}
+                        {{ form.password(class="form-control") }}
+                        {% for error in form.password.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Ponovi lozinku -->
+                    <div class="mb-3">
+                        {{ form.confirm_password.label(class="form-label") }}
+                        {{ form.confirm_password(class="form-control") }}
+                        {% for error in form.confirm_password.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Submit dugme -->
+                    <button class="btn btn-success" type="submit">Registriraj se</button>
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-primary">Prijava</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

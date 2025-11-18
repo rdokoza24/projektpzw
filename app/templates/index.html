@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Naslovnica{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>Dobrodošli, {{ current_user.username }}!</h2>
+        <p>Ovo je početna stranica. Odaberite naredbu ispod:</p>
+
+        <div class="list-group">
+            <a href="{{ url_for('notes.create_note') }}" class="list-group-item list-group-item-action">
+                <i class="bi bi-plus-circle"></i> Kreiraj novu bilješku
+            </a>
+            <a href="{{ url_for('notes.list_notes') }}" class="list-group-item list-group-item-action">
+                <i class="bi bi-journals"></i> Pregledaj svoje bilješke
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

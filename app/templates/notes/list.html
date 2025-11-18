@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Moje bilješke{% endblock %}
+{% block content %}
+<h3>Moje bilješke</h3>
+<a href="{{ url_for('notes.create_note') }}" class="btn btn-primary mb-3">Nova bilješka</a>
+
+{% if notes %}
+    <div class="row">
+    {% for n in notes %}
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ n.title }}</h5>
+                    
+                    <div class="card-text">{{ n.content | markdown_to_html | safe }}</div>
+                    
+                    <small class="text-muted">Kreirano: {{ n.created_at.strftime('%Y-%m-%d %H:%M:%S') if n.created_at else "" }}</small>
+
+                    <div class="mt-3 d-flex gap-2">
+                        <a href="{{ url_for('notes.edit_note', note_id=n._id) }}" class="btn btn-primary btn-sm">Uredi</a>
+
+                        <form action="{{ url_for('notes.delete_note', note_id=n._id) }}" method="POST" onsubmit="return confirm('Jeste li sigurni da želite obrisati bilješku?');">
+                            <button type="submit" class="btn btn-danger btn-sm">Obriši</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% else %}
+    <p class="text-muted">Nemate još bilješki.</p>
+{% endif %}
+{% endblock %}
