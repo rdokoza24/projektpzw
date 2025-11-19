@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv
 from flask import Flask
 from flask_pymongo import PyMongo
-import certifi
 
 # Učitaj .env varijable (samo za lokalni razvoj)
 load_dotenv()
@@ -19,7 +18,7 @@ app = create_app()
 # Konfiguracija MongoDB
 app.config["MONGO_URI"] = MONGO_URI
 mongo = PyMongo()
-mongo.init_app(app, tlsCAFile=certifi.where())
+mongo.init_app(app)
 
 # Lokalni razvoj
 if __name__ == "__main__":
